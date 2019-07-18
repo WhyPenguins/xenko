@@ -1254,7 +1254,7 @@ namespace Xenko.Graphics
 
         internal void GetViewSliceBounds(ViewType viewType, ref int arrayOrDepthIndex, ref int mipIndex, out int arrayOrDepthCount, out int mipCount)
         {
-            int arrayOrDepthSize = this.Depth > 1 ? this.Depth : this.ArraySize;
+            int arrayOrDepthSize = this.ViewDepth > 1 ? this.ViewDepth : this.ArraySize;
 
             switch (viewType)
             {
