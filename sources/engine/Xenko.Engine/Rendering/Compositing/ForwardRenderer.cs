@@ -29,24 +29,24 @@ namespace Xenko.Rendering.Compositing
         // TODO: should we use GraphicsDeviceManager.PreferredBackBufferFormat?
         public const PixelFormat DepthBufferFormat = PixelFormat.D24_UNorm_S8_UInt;
 
-        private IShadowMapRenderer shadowMapRenderer;
-        private Texture depthStencilROCached;
-        private MultisampleCount actualMultisampleCount = MultisampleCount.None;
-        private VRDeviceSystem vrSystem;
+        protected IShadowMapRenderer shadowMapRenderer;
+        protected Texture depthStencilROCached;
+        protected MultisampleCount actualMultisampleCount = MultisampleCount.None;
+        protected VRDeviceSystem vrSystem;
 
-        private readonly Logger logger = GlobalLogger.GetLogger(nameof(ForwardRenderer));
+        protected readonly Logger logger = GlobalLogger.GetLogger(nameof(ForwardRenderer));
 
-        private readonly FastList<Texture> currentRenderTargets = new FastList<Texture>();
-        private readonly FastList<Texture> currentRenderTargetsNonMSAA = new FastList<Texture>();
-        private Texture currentDepthStencil;
-        private Texture currentDepthStencilNonMSAA;
+        protected readonly FastList<Texture> currentRenderTargets = new FastList<Texture>();
+        protected readonly FastList<Texture> currentRenderTargetsNonMSAA = new FastList<Texture>();
+        protected Texture currentDepthStencil;
+        protected Texture currentDepthStencilNonMSAA;
 
         protected Texture viewOutputTarget;
         protected Texture viewDepthStencil;
 
-        protected int ViewCount { get; private set; }
+        protected int ViewCount { get; set; }
 
-        protected int ViewIndex { get; private set; }
+        protected int ViewIndex { get; set; }
 
         public ClearRenderer Clear { get; set; } = new ClearRenderer();
 
@@ -458,7 +458,7 @@ namespace Xenko.Rendering.Compositing
         /// Resolves the MSAA textures. Converts MSAA currentRenderTargets and currentDepthStencil into currentRenderTargetsNonMSAA and currentDepthStencilNonMSAA.
         /// </summary>
         /// <param name="drawContext">The draw context.</param>
-        private void ResolveMSAA(RenderDrawContext drawContext)
+        protected void ResolveMSAA(RenderDrawContext drawContext)
         {
             // Resolve render targets
             currentRenderTargetsNonMSAA.Resize(currentRenderTargets.Count, false);
@@ -750,7 +750,7 @@ namespace Xenko.Rendering.Compositing
             currentDepthStencilNonMSAA = null;
         }
 
-        private void CopyOrScaleTexture(RenderDrawContext drawContext, Texture input, Texture output)
+        protected void CopyOrScaleTexture(RenderDrawContext drawContext, Texture input, Texture output)
         {
             if (input.Size != output.Size)
             {
@@ -764,7 +764,7 @@ namespace Xenko.Rendering.Compositing
             }
         }
 
-        private Texture ResolveDepthAsSRV(RenderDrawContext context)
+        protected Texture ResolveDepthAsSRV(RenderDrawContext context)
         {
             if (!BindDepthAsResourceDuringTransparentRendering)
                 return null;
@@ -804,7 +804,7 @@ namespace Xenko.Rendering.Compositing
             return depthStencilSRV;
         }
 
-        private void PrepareRenderTargets(RenderDrawContext drawContext, Texture outputRenderTarget, Texture outputDepthStencil)
+        protected void PrepareRenderTargets(RenderDrawContext drawContext, Texture outputRenderTarget, Texture outputDepthStencil)
         {
             if (OpaqueRenderStage == null)
                 return;
@@ -880,13 +880,13 @@ namespace Xenko.Rendering.Compositing
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct PerViewVR
+        protected struct PerViewVR
         {
             public int EyeIndex;
             public int EyeCount;
         }
 
-        private unsafe void PrepareVRConstantBuffer(RenderContext context, int eyeIndex, int eyeCount)
+        protected unsafe void PrepareVRConstantBuffer(RenderContext context, int eyeIndex, int eyeCount)
         {
             foreach (var renderFeature in context.RenderSystem.RenderFeatures)
             {

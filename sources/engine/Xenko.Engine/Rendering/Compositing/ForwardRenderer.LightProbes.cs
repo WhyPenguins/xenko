@@ -20,10 +20,10 @@ namespace Xenko.Rendering.Compositing
 {
     partial class ForwardRenderer
     {
-        private DynamicEffectInstance bakeLightProbes;
-        private MutablePipelineState bakeLightProbesPipeline;
+        protected DynamicEffectInstance bakeLightProbes;
+        protected MutablePipelineState bakeLightProbesPipeline;
 
-        private unsafe void PrepareLightprobeConstantBuffer(RenderContext context)
+        protected unsafe void PrepareLightprobeConstantBuffer(RenderContext context)
         {
             var renderView = context.RenderView;
             var lightProbesData = context.VisibilityGroup.Tags.Get(LightProbeRenderer.CurrentLightProbes);
@@ -56,7 +56,7 @@ namespace Xenko.Rendering.Compositing
         /// Bake lightprobes into buffers compatible with <see cref="LightProbeRenderer"/>
         /// </summary>
         /// <param name="drawContext">The drawing context</param>
-        private unsafe void BakeLightProbes(RenderContext context, RenderDrawContext drawContext)
+        protected unsafe void BakeLightProbes(RenderContext context, RenderDrawContext drawContext)
         {
             Texture ibl = null;
             Buffer tetrahedronProbeIndices = null;
@@ -379,7 +379,7 @@ namespace Xenko.Rendering.Compositing
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct LightProbeCBuffer
+        protected struct LightProbeCBuffer
         {
             public int UserVertexCount;
         }

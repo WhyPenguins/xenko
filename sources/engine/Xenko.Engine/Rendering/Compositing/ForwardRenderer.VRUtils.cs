@@ -9,7 +9,7 @@ namespace Xenko.Rendering.Compositing
 {
     public partial class ForwardRenderer
     {
-        private static unsafe void ComputeCommonViewMatrices(RenderContext context, Matrix* viewMatrices, Matrix* projectionMatrices)
+        protected static unsafe void ComputeCommonViewMatrices(RenderContext context, Matrix* viewMatrices, Matrix* projectionMatrices)
         {
             // there are some limitations to this technique:
             //  both eyes view matrices must be facing the same direction
