@@ -432,7 +432,7 @@ namespace Xenko.Graphics
 
             NativeDeviceContext.Draw(vertexCount, startVertexLocation);
 
-            GraphicsDevice.FrameTriangleCount += (uint)vertexCount;
+            GraphicsDevice.FrameTriangleCount += (uint)vertexCount/3;
             GraphicsDevice.FrameDrawCalls++;
         }
 
@@ -461,7 +461,7 @@ namespace Xenko.Graphics
             NativeDeviceContext.DrawIndexed(indexCount, startIndexLocation, baseVertexLocation);
 
             GraphicsDevice.FrameDrawCalls++;
-            GraphicsDevice.FrameTriangleCount += (uint)indexCount;
+            GraphicsDevice.FrameTriangleCount += (uint)indexCount/3;
         }
 
         /// <summary>
@@ -479,7 +479,7 @@ namespace Xenko.Graphics
             NativeDeviceContext.DrawIndexedInstanced(indexCountPerInstance, instanceCount, startIndexLocation, baseVertexLocation, startInstanceLocation);
 
             GraphicsDevice.FrameDrawCalls++;
-            GraphicsDevice.FrameTriangleCount += (uint)(indexCountPerInstance * instanceCount);
+            GraphicsDevice.FrameTriangleCount += (uint)(indexCountPerInstance/3 * instanceCount);
         }
 
         /// <summary>
@@ -512,7 +512,7 @@ namespace Xenko.Graphics
             NativeDeviceContext.DrawInstanced(vertexCountPerInstance, instanceCount, startVertexLocation, startInstanceLocation);
 
             GraphicsDevice.FrameDrawCalls++;
-            GraphicsDevice.FrameTriangleCount += (uint)(vertexCountPerInstance * instanceCount);
+            GraphicsDevice.FrameTriangleCount += (uint)(vertexCountPerInstance/3 * instanceCount);
         }
 
         /// <summary>
